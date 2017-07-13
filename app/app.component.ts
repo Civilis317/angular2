@@ -1,0 +1,13 @@
+/**
+ * app.component.ts
+ */
+import {Component} from 'angular2/core';
+
+@Component({
+  selector: 'hello-world',
+  template: '<h1>Hello World,  this is Angular2!</h1>'
+})
+
+export class AppComponent {
+
+}
