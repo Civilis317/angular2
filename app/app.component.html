@@ -1,0 +1,34 @@
+<!-- begin  app.component.html -->
+<h1>{{title}}</h1>
+
+<h2 *ngIf="cities.length > 3">That's a lot of cities!</h2>
+
+<input type="checkbox" (change)="toggleCities()"> &nbsp; {{toggleMsg}} 
+
+<ul class="list-group" *ngIf="showCities">
+	<li class="list-group-item" *ngFor="#city of cities" (click)="cityDetail(city)">{{city.name}}</li>
+</ul>
+
+<div *ngIf="currentCity">
+	<img [src]="cityPhoto" [alt]="currentCity.name" style="width: 400px; height: 300px">
+	<h2>{{currentCity.name}}</h2>
+</div>
+
+<div>
+	<input type="text" class="input-lg" placeholder="New city..." #txtCity (keyup)="changeCity(txtCity.value)">
+	&nbsp;
+	<button class="btn btn-success" (click)="addCity(txtCity.value)">add City</button>
+	<h2>{{newCity}}</h2>
+</div>
+
+<div>
+	<button (click)="toggleText()">Toggle text</button>
+	<h2 [hidden]="txtVisible">Now you see me, ...</h2>
+</div>
+
+<div>
+	<input type="text" class="input-lg" placeholder="Another new city..." [(ngModel)]="txtNewCity">
+	<h2>{{txtNewCity}}</h2>
+</div>
+
+<!-- end  app.component.html -->

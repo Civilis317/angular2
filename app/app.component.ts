@@ -6,21 +6,48 @@ import {City} from './model/city.model';
 
 @Component({
   selector: 'hello-world',
-  template: `
-            <h1>{{ title }}</h1>
-            <ul class="list-group" *ngIf="showCities">
-              <li class="list-group-item" *ngFor="#city of cities">{{city.name}}</li>
-            </ul>
-            
-            <h2 *ngIf="cities.length > 3">That's a lot of cities!</h2>
-  
-            `
+  templateUrl: 'app/app.component.html'
 })
 
 export class AppComponent {
+  txtNewCity: string;
+  currentCity: City;
+  cityPhoto: string = '';
+  txtVisible: boolean = true;
+  newCity: string = '';
+  toggleMsg: string = 'Hide list of cities';
   title: string;
   cities: City[];
   showCities: boolean = true;
+
+  toggleCities() {
+    this.showCities = !this.showCities;
+    this.showCities
+      ? this.toggleMsg = 'Hide list of cities'
+      : this.toggleMsg = 'Show list of cities';
+  }
+
+  cityDetail(city: City) {
+    this.currentCity = city;
+    this.cityPhoto = `img/${this.currentCity.name}.jpg`;
+  }
+
+  changeCity(value: string) {
+    this.newCity = value;
+  }
+
+  addCity(value: string) {
+    let newCity = new City(
+      this.cities.length + 1,   // id 
+      value,                    // name
+      'Unknown'                 // province
+    );
+    this.cities.push(newCity);
+  }
+
+  toggleText() {
+    this.txtVisible = !this.txtVisible;
+  }
 
   constructor() {
     this.title = 'Angular2 application';
