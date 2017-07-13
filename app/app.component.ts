@@ -4,29 +4,33 @@
 import {Component} from 'angular2/core';
 import {City} from './model/city.model';
 import {CityService} from './services/city.service';
+import {HTTP_PROVIDERS} from 'angular2/http';
 
 @Component({
   selector: 'hello-world',
   templateUrl: 'app/app.component.html',
-  // providers: [CityService] // this has moved to the bootstrapper main.ts, to have a single instance of the service for all components
+  providers: [CityService, HTTP_PROVIDERS]
 })
 
 export class AppComponent {
   currentCity: City;
   cityPhoto: string = '';
   toggleMsg: string = 'Hide list of cities';
-  title: string;
+  title: string = 'Cities by Angular2 Service';
   cities: City[];
   showCities: boolean = true;
 
   constructor(private cityService: CityService) {
-    this.title = 'Cities by Angular2 Service';
-
   }
 
   // lifecycle hook
   ngOnInit() {
-    this.cities = this.cityService.getCities();
+    this.cityService.getCities()
+      .subscribe(
+      cityData => this.cities = cityData,
+      err => console.log(err),
+      () => console.log('Cities retrieval complete')
+      )
   }
 
   toggleCities() {
@@ -39,10 +43,6 @@ export class AppComponent {
   cityDetail(city: City) {
     this.currentCity = city;
     this.cityPhoto = `img/${this.currentCity.name}.jpg`;
-  }
-
-  addCity(value: string) {
-    this.cityService.addCity(value);
   }
 
 }
