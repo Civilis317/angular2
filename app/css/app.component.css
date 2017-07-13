@@ -1,0 +1,23 @@
+/* hier component-specifieke CSS plaatsen */
+.moviePoster {
+    max-height : 80px;
+}
+.moviePosterBig{
+    max-height: 240px;
+    float : right;
+    padding :10px;
+    margin: 4px;
+    -webkit-border-radius :4px;
+    -moz-border-radius    :4px;
+    border-radius         :4px;
+    border: 1px solid #3333bb;
+}
+
+.movieYear {
+    color       : rebeccapurple;
+    font-weight : bold;
+}
+
+tr {
+    cursor : pointer;
+}

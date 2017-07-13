@@ -1,25 +1,43 @@
-<!-- begin  app.component.html -->
+<!-- app.component.html -->
+<div class="row">
+	<div class="col-md-6">
+		<h1>Movies via OMDb API</h1>
+		<div>
+			<input type="text" #keyword class="input-lg" placeholder="movie name...">
+			<button class="btn btn-primary" (click)="searchMovies(keyword.value)">Find movies</button>
+			<button class="btn btn-default" (click)="clearMovies()">Clear</button>
+		</div>
+		<table class="table table-striped">
+			<tr>
+				<th>Naam</th>
+				<th>Jaar</th>
+				<th>Poster</th>
+			</tr>
+			<tr *ngFor="#movie of movies" (click)="getMovieDetails(movie.imdbID)">
+				<td>{{ movie.Title }}</td>
+				<td><span class="movieYear">{{ movie.Year}}</span></td>
+				<td><img src="{{movie.Poster}}" alt="Movie" class="moviePoster"/></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-md-6" *ngIf="currentMovie">
+		<div class="page-header">
+			<h1>Movie details</h1>
+		</div>
+		<div class="jumbotron">
+			<img src="{{ currentMovie.Poster}}" class="moviePosterBig"/>
 
-<h1>{{ title }}</h1>
+			<h1>{{ currentMovie.Title }} ({{ currentMovie.Year}})</h1>
 
-Nr rows: <select class="form-control" [(ngModel)]="selectedRows" (ngModelChange)="getPersons($event)">
-	<option *ngFor="#numRow of numRows">{{ numRow }}</option>
-</select>
+			<p>{{ currentMovie.Plot }}</p>
 
-<table class="table table-striped">
-	<tr>
-	<th>ID</th>
-		<th>Naam</th>
-		<th>E-mail</th>
-	</tr>
-	<tr *ngFor="#person of people">
-		<td>{{ person.id }}</td>
-		<td>{{ person.fname}} {{ person.lname}}</td>
-		<td>{{person.email}}</td>
-	</tr>
-</table>
-<div>
-	<button class="btn btn-primary" (click)="emptyTable()">Leegmaken</button>
+			<h3>Actors</h3>
+			{{ currentMovie.Actors}}
+			<h3>Director</h3>
+			{{ currentMovie.Director }}
+
+		</div>
+
+	</div>
 </div>
 
-<!-- end  app.component.html -->

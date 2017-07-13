@@ -1,39 +1,52 @@
 // app.component.ts
 import {Component} from 'angular2/core';
-import {Person} from "./model/person.model";
-import {PersonService} from './services/person.service';
 import {HTTP_PROVIDERS} from "angular2/http";
+import {MovieService} from "./services/movieService";
 
-
+// Component annotation. Let op de injection van providers: [] en gebruik van styleUrls:[]
 @Component({
-  selector: 'person-app',
-  templateUrl: 'app/app.component.html',
-  providers: [PersonService, HTTP_PROVIDERS]
+	selector   : 'movie-app',
+	templateUrl: 'app/app.component.html',
+	providers  : [MovieService, HTTP_PROVIDERS],
+	styleUrls  : ['./app/css/app.component.css']
 })
 
 export class AppComponent {
-  title: string = 'Dummy data via Filltext.com';
-  people: Person[] = [];
-  numRows: number[] = [5, 10, 15];
-  selectedRows: number = 5; // default 5
+	// Properties voor de component/class, nu geen Model gebruikt.
+	movies:Object[];
+	currentMovie:Object = null;
 
-  constructor(private personService: PersonService) {
-  }
+	constructor(private movieService:MovieService) {
+	}
 
-  ngOnInit() {
-    this.getPersons();
-  }
+	// Serie movies zoeken op basis van trefwoord.
+	searchMovies(keyword) {
+		this.currentMovie = null;
+		this.movieService.searchMovies(keyword)
+			.subscribe(movieData => {
+					this.movies = movieData;				// 1. success handler
+				},
+				err => console.log(err),						// 2. error handler
+				()=> console.log('Getting movies complete...')	// 3. complete handler
+			)
+	}
 
-  getPersons() {
-    this.personService.getPersons(this.selectedRows)
-      .subscribe(
-      personData => this.people = personData,
-      err => console.log(err),
-      () => console.log('Personen ophalen compleet.')
-      )
-  }
+	// Details ophalen op basis van movieID
+	getMovieDetails(movieID:string) {
+		this.movieService.getMovieDetails(movieID)
+			.subscribe(
+				movie => {
+					this.currentMovie = movie;
+					console.log(this.currentMovie);
+				},
+				err => console.log(err),
+				()=> console.log('Getting movie with ID ', movieID, ' complete.')
+			)
+	}
 
-  emptyTable() {
-    this.people = [];
-  }
+	// alles leegmaken.
+	clearMovies() {
+		this.movies       = [];
+		this.currentMovie = null;
+	}
 }
