@@ -1,48 +1,39 @@
-/**
- * app.component.ts
- */
+// app.component.ts
 import {Component} from 'angular2/core';
-import {City} from './model/city.model';
-import {CityService} from './services/city.service';
-import {HTTP_PROVIDERS} from 'angular2/http';
+import {Person} from "./model/person.model";
+import {PersonService} from './services/person.service';
+import {HTTP_PROVIDERS} from "angular2/http";
+
 
 @Component({
-  selector: 'hello-world',
+  selector: 'person-app',
   templateUrl: 'app/app.component.html',
-  providers: [CityService, HTTP_PROVIDERS]
+  providers: [PersonService, HTTP_PROVIDERS]
 })
 
 export class AppComponent {
-  currentCity: City;
-  cityPhoto: string = '';
-  toggleMsg: string = 'Hide list of cities';
-  title: string = 'Cities by Angular2 Service';
-  cities: City[];
-  showCities: boolean = true;
+  title: string = 'Dummy data via Filltext.com';
+  people: Person[] = [];
+  numRows: number[] = [5, 10, 15];
+  selectedRows: number = 5; // default 5
 
-  constructor(private cityService: CityService) {
+  constructor(private personService: PersonService) {
   }
 
-  // lifecycle hook
   ngOnInit() {
-    this.cityService.getCities()
+    this.getPersons();
+  }
+
+  getPersons() {
+    this.personService.getPersons(this.selectedRows)
       .subscribe(
-      cityData => this.cities = cityData,
+      personData => this.people = personData,
       err => console.log(err),
-      () => console.log('Cities retrieval complete')
+      () => console.log('Personen ophalen compleet.')
       )
   }
 
-  toggleCities() {
-    this.showCities = !this.showCities;
-    this.showCities
-      ? this.toggleMsg = 'Hide list of cities'
-      : this.toggleMsg = 'Show list of cities';
+  emptyTable() {
+    this.people = [];
   }
-
-  cityDetail(city: City) {
-    this.currentCity = city;
-    this.cityPhoto = `img/${this.currentCity.name}.jpg`;
-  }
-
 }
