@@ -1,8 +1,6 @@
 <!-- begin  app.component.html -->
 <h1>{{title}}</h1>
 
-<h2 *ngIf="cities.length > 3">That's a lot of cities!</h2>
-
 <input type="checkbox" (change)="toggleCities()"> &nbsp; {{toggleMsg}} 
 
 <ul class="list-group" *ngIf="showCities">
@@ -15,20 +13,10 @@
 </div>
 
 <div>
-	<input type="text" class="input-lg" placeholder="New city..." #txtCity (keyup)="changeCity(txtCity.value)">
+	<input type="text" class="input-lg" placeholder="New city..." #newCity (keyup)="changeCity(newCity.value)">
 	&nbsp;
-	<button class="btn btn-success" (click)="addCity(txtCity.value)">add City</button>
-	<h2>{{newCity}}</h2>
-</div>
-
-<div>
-	<button (click)="toggleText()">Toggle text</button>
-	<h2 [hidden]="txtVisible">Now you see me, ...</h2>
-</div>
-
-<div>
-	<input type="text" class="input-lg" placeholder="Another new city..." [(ngModel)]="txtNewCity">
-	<h2>{{txtNewCity}}</h2>
+	<button class="btn btn-success" (click)="addCity(newCity.value)">add City</button>
+	
 </div>
 
 <!-- end  app.component.html -->

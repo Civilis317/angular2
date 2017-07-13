@@ -3,22 +3,31 @@
  */
 import {Component} from 'angular2/core';
 import {City} from './model/city.model';
+import {CityService} from './services/city.service';
 
 @Component({
   selector: 'hello-world',
-  templateUrl: 'app/app.component.html'
+  templateUrl: 'app/app.component.html',
+  // providers: [CityService] // this has moved to the bootstrapper main.ts, to have a single instance of the service for all components
 })
 
 export class AppComponent {
-  txtNewCity: string;
   currentCity: City;
   cityPhoto: string = '';
-  txtVisible: boolean = true;
-  newCity: string = '';
   toggleMsg: string = 'Hide list of cities';
   title: string;
   cities: City[];
   showCities: boolean = true;
+
+  constructor(private cityService: CityService) {
+    this.title = 'Cities by Angular2 Service';
+
+  }
+
+  // lifecycle hook
+  ngOnInit() {
+    this.cities = this.cityService.getCities();
+  }
 
   toggleCities() {
     this.showCities = !this.showCities;
@@ -32,31 +41,8 @@ export class AppComponent {
     this.cityPhoto = `img/${this.currentCity.name}.jpg`;
   }
 
-  changeCity(value: string) {
-    this.newCity = value;
-  }
-
   addCity(value: string) {
-    let newCity = new City(
-      this.cities.length + 1,   // id 
-      value,                    // name
-      'Unknown'                 // province
-    );
-    this.cities.push(newCity);
-  }
-
-  toggleText() {
-    this.txtVisible = !this.txtVisible;
-  }
-
-  constructor() {
-    this.title = 'Angular2 application';
-    this.cities = [
-      new City(1, 'Groningen', 'Groningen'),
-      new City(2, 'Hengelo', 'Overijssel'),
-      new City(3, 'Den Haag', 'Zuid-Holland'),
-      new City(4, 'Enschede', 'Overijssel')
-    ];
+    this.cityService.addCity(value);
   }
 
 }
