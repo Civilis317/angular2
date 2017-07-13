@@ -1,4 +1,13 @@
+# eclipse stuff
+.classpath
+.project
+.settings
+
+# nodejs & npm
 /node_modules/
 /typings/
-/.settings/
-/.project
+
+# generated stuff from TypeScript
+**/*.map
+app/**/*.js
+services/**/*.js
