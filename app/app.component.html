@@ -10,12 +10,14 @@
 			</li>
 		</ul>
 		<button class="btn btn-primary" (click)="clearCity()">Leegmaken</button>
+		<hr>
+		<city-orders></city-orders>
 	</div>
 	<div class="col-md-6">
 		<div *ngIf="currentCity">
-			<city-detail 
-				[city]="currentCity" 
-				(rating)="updateCityRating($event)">
+			<city-detail
+					[city]="currentCity"
+					(rating)="updateCityRating($event)">
 			</city-detail>
 		</div>
 	</div>

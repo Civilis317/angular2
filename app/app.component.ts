@@ -1,52 +1,47 @@
 // app.component.ts
 import {Component} from 'angular2/core';
 import {City} from "./model/city.model";
-import {CityDetail} from "./city.detail"; // Detail Component importeren
 import {CityService} from './services/city.service';
 import {HTTP_PROVIDERS} from "angular2/http";
+import {CityDetail} from "./city.detail"; // Detail Component importeren
+import {CityOrders} from "./city.orders";
 import 'rxjs/Rx';
+import {OrderService} from "./services/order.service";
 
 
 @Component({
-  selector: 'hello-world',
-  templateUrl: 'app/app.component.html',
-  providers: [CityService, HTTP_PROVIDERS],
-  directives: [CityDetail]	// niet vergeten: invoegen bij directives!
+	selector   : 'hello-world',
+	templateUrl: 'app/app.component.html',
+	providers  : [CityService, HTTP_PROVIDERS, OrderService], // <== Aaargh, hier vergeet ik *altijd* OrderService te injecteren. Anderhalf uur zoeken en debuggen... Beste Lezers, denk hier aan!
+	directives : [CityDetail, CityOrders]
 })
 
 export class AppComponent {
-  title: string = 'Steden met detailcomponent';
-  cities: City[] = [];
-  cityPhoto: string = '';
-  currentCity: City;
+	title:string     = 'Steden met ordercomponent';
+	cities:City[]    = [];
+	currentCity:City;
 
-  constructor(private cityService: CityService) {
-  }
+	constructor(private cityService:CityService) {
+	}
 
-  ngOnInit() {
-    this.cityService.getCities()
-      .subscribe(
-      cityData => this.cities = cityData,
-      err => console.log(err),
-      () => console.log('Steden ophalen compleet.')
-      )
-  }
+	ngOnInit() {
+		this.cityService.getCities()
+			.subscribe(
+				cityData => this.cities = cityData,
+				err => console.log(err),
+				() => console.log('Steden ophalen compleet.')
+			)
+	}
 
-  showCity(city: City) {
-    this.currentCity = city;
-    console.log(city.name)
-    this.cityPhoto = `../img/${this.currentCity.name}.jpg`;
-    console.log('photo:' + this.cityPhoto)
-  }
+	showCity(city:City) {
+		this.currentCity = city;
+	}
 
-  clearCity() {
-    console.log('clearCity!!!')
-    this.currentCity = null;
-  }
+	clearCity(){
+		this.currentCity = null;
+	}
 
-  updateCityRating(rating) {
-    this.currentCity.rating += rating;
-  }
-
-
+	updateCityRating(rating){
+		this.currentCity.rating += rating;
+	}
 }
