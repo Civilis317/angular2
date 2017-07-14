@@ -1,22 +1,22 @@
-<!-- begin  app.component.html -->
-<h1>{{title}}</h1>
-
-<input type="checkbox" (change)="toggleCities()"> &nbsp; {{toggleMsg}} 
-
-<ul class="list-group" *ngIf="showCities">
-	<li class="list-group-item" *ngFor="#city of cities" (click)="cityDetail(city)">{{city.name}}</li>
-</ul>
-
-<div *ngIf="currentCity">
-	<img [src]="cityPhoto" [alt]="currentCity.name" style="width: 400px; height: 300px">
-	<h2>{{currentCity.name}}</h2>
+<!-- app.component.html -->
+<div class="row">
+	<div class="col-md-6">
+		<h1>{{ title }}</h1>
+		<ul class="list-group">
+			<li class="list-group-item"
+				*ngFor="#city of cities"
+				(click)="showCity(city)">{{ city.name }}
+				<span class="badge">{{city.rating}}</span>
+			</li>
+		</ul>
+		<button class="btn btn-primary" (click)="clearCity()">Leegmaken</button>
+	</div>
+	<div class="col-md-6">
+		<div *ngIf="currentCity">
+			<city-detail 
+				[city]="currentCity" 
+				(rating)="updateCityRating($event)">
+			</city-detail>
+		</div>
+	</div>
 </div>
-
-<div>
-	<input type="text" class="input-lg" placeholder="New city..." #newCity (keyup)="changeCity(newCity.value)">
-	&nbsp;
-	<button class="btn btn-success" (click)="addCity(newCity.value)">add City</button>
-	
-</div>
-
-<!-- end  app.component.html -->

@@ -1,27 +1,59 @@
 [
   {
-	"id"      : 1,
-	"name"    : "Groningen",
-	"province": "Groningen"
+	"id"        : 1,
+	"name"      : "Groningen",
+	"province"  : "Groningen",
+	"highlights": [
+	  "Martinitoren",
+	  "Grote Markt"
+	],
+	"rating"    : 0
   },
   {
-	"id"      : 2,
-	"name"    : "Hengelo",
-	"province": "Overijssel"
+	"id"        : 2,
+	"name"      : "Hengelo",
+	"province"  : "Overijssel",
+	"highlights": [
+	  "Stadhuis"
+	],
+	"rating"    : 0
   },
   {
-	"id"      : 3,
-	"name"    : "Den Haag",
-	"province": "Zuid-Holland"
+	"id"        : 3,
+	"name"      : "Den Haag",
+	"province"  : "Zuid-Holland",
+	"highlights": [
+	  "Binnenhof",
+	  "Madurodam"
+	],
+	"rating"    : 0
   },
   {
-	"id"      : 4,
-	"name"    : "Enschede",
-	"province": "Overijssel"
+	"id"        : 4,
+	"name"      : "Enschede",
+	"province"  : "Overijssel",
+	"highlights": [
+	  "Twentse Welle museum",
+	  "Van Heeckplein"
+	],
+	"rating"    : 0
   },
   {
-	"id"      : 5,
-	"name"    : "Amsterdam",
-	"province": "Noord-Holland"
+	"id"        : 5,
+	"name": "Heerlen",
+	"province": "Limburg",
+	"highlights": [
+	  "Mijnbouwmuseum"
+	],
+	"rating"    : 0
+  },
+  {
+	"id"        : 6,
+	"name": "Mechelen",
+	"province": "Antwerpen",
+	"highlights": [
+	  "McDonald's"
+	],
+	"rating"    : 0
   }
 ]
