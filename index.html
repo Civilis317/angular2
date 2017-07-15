@@ -1,9 +1,10 @@
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-	<title>Angular 2 - Hello World</title>
+	<title>Angular 2 - Routing</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Voor routing! -->
+	<base href="/">
 
 	<!-- 1. bibliotheken laden, gebruik exact deze volgorde -->
 	<script src="node_modules/es6-shim/es6-shim.min.js"></script>
@@ -14,13 +15,14 @@
 	<script src="node_modules/rxjs/bundles/Rx.js"></script>
 	<script src="node_modules/angular2/bundles/angular2.dev.js"></script>
 	<script src="node_modules/angular2/bundles/http.dev.js"></script>
+	<script src="node_modules/angular2/bundles/router.js"></script>
 
 	<!-- 2. SystemJS configureren -->
 	<script>
 		System.config({
 			packages: {
 				app: {
-					format: 'register',
+					format          : 'register',
 					defaultExtension: 'js'
 				}
 			}
@@ -31,12 +33,29 @@
 
 	<!-- 3. Styling toevoegen -->
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<style>
+		.list-group-item {
+			cursor : pointer;
+		}
+
+		.cityPhoto {
+			max-width     : 300px;
+			padding       : 8px;
+			margin        : 8px;
+			border        : 1px solid #333;
+			border-radius : 4px;
+
+		}
+	</style>
 </head>
+
+<!-- 4. De applicatie tonen -->
 <body>
 <div class="container">
-	<hello-world>
+	<home-component>
 		Bezig met laden...
-	</hello-world>
+	</home-component>
 </div>
 </body>
+
 </html>
