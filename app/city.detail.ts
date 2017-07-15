@@ -14,6 +14,7 @@ import {OrderService} from "./services/order.service";
 			<li class="list-group-item">Naam: {{city.name}}</li>
 			<li class="list-group-item">Provincie: {{city.province}}</li>
 			<li class="list-group-item">Highlights: {{city.highlights}}</li>
+			<li class="list-group-item">Bijgewerkt: {{ datumBijgewerkt | date:'MMddyyyyHHmm' }} uur</li>
 		</ul>
 		<img src="../img/{{ city.name}}.jpg" alt="Foto van {{ city.name }}" class="img-responsive"/>
 		<h2>Prijs voor een weekendje weg: {{ city.price | currency:'EUR':true:1.2 }}
@@ -25,6 +26,7 @@ import {OrderService} from "./services/order.service";
 export class CityDetail {
 	@Input() city:City;
 	@Output() rating:EventEmitter<number> = new EventEmitter();
+	datumBijgewerkt: number = Date.now();
 
 	constructor(private orderService:OrderService) {
 

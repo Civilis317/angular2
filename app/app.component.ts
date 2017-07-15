@@ -8,18 +8,21 @@ import {CityOrders} from "./city.orders";
 import 'rxjs/Rx';
 import {OrderService} from "./services/order.service";
 import {ROUTER_DIRECTIVES} from "angular2/router";
+import {FilterPipe} from './pipes/filter.pipe';
 
 @Component({
 	selector   : 'hello-world',
 	templateUrl: 'app/app.component.html',
 	providers  : [CityService, HTTP_PROVIDERS, OrderService],
-	directives : [CityDetail, CityOrders, ROUTER_DIRECTIVES]
+	directives : [CityDetail, CityOrders, ROUTER_DIRECTIVES],
+	pipes      : [FilterPipe]// pipe gebruiken voor component
 })
 
 export class AppComponent {
-	title:string  = 'Steden met routing';
-	cities:City[] = [];
+	title:string      = 'Filter steden met custom pipe';
+	cities:City[]     = [];
 	currentCity:City;
+	filterCity:string = '';
 
 	constructor(private cityService:CityService) {
 	}
