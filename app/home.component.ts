@@ -3,6 +3,7 @@ import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {AppComponent} from "./app.component";
 import {CityAddComponent} from "./city.add";
+import {CityDetailComponent} from "./city.detail.component";
 
 @Component({
 	selector  : 'home-component',
@@ -21,7 +22,8 @@ import {CityAddComponent} from "./city.add";
 @RouteConfig([
 	{path: '/', name: 'root', redirectTo: ['Home']},
 	{path: '/home', name: 'Home', component: AppComponent},
-	{path: '/add', name: 'Add', component: CityAddComponent}
+	{path: '/add', name: 'Add', component: CityAddComponent},
+	{path: '/detail/:name/:id', name: 'Detail', component: CityDetailComponent}
 ])
 
 export class HomeComponent {

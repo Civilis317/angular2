@@ -7,45 +7,41 @@ import {CityDetail} from "./city.detail"; // Detail Component importeren
 import {CityOrders} from "./city.orders";
 import 'rxjs/Rx';
 import {OrderService} from "./services/order.service";
-import {Router} from "angular2/router";
+import {ROUTER_DIRECTIVES} from "angular2/router";
 
 @Component({
-  selector: 'hello-world',
-  templateUrl: 'app/app.component.html',
-  providers: [CityService, HTTP_PROVIDERS, OrderService], // <== Aaargh, hier vergeet ik *altijd* OrderService te injecteren. Anderhalf uur zoeken en debuggen... Beste Lezers, denk hier aan!
-  directives: [CityDetail, CityOrders]
+	selector   : 'hello-world',
+	templateUrl: 'app/app.component.html',
+	providers  : [CityService, HTTP_PROVIDERS, OrderService],
+	directives : [CityDetail, CityOrders, ROUTER_DIRECTIVES]
 })
 
 export class AppComponent {
-  title: string = 'Steden met routing';
-  cities: City[] = [];
-  currentCity: City;
+	title:string  = 'Steden met routing';
+	cities:City[] = [];
+	currentCity:City;
 
-  constructor(private cityService: CityService, private router: Router) {
-  }
+	constructor(private cityService:CityService) {
+	}
 
-  ngOnInit() {
-    this.cityService.getCities()
-      .subscribe(
-      cityData => this.cities = cityData,
-      err => console.log(err),
-      () => console.log('Steden ophalen compleet.')
-      )
-  }
+	ngOnInit() {
+		this.cityService.getCities()
+			.subscribe(
+				cityData => this.cities = cityData,
+				err => console.log(err),
+				() => console.log('Steden ophalen compleet.')
+			)
+	}
 
-  showCity(city: City) {
-    this.currentCity = city;
-  }
+	showCity(city:City) {
+		this.currentCity = city;
+	}
 
-  clearCity() {
-    this.currentCity = null;
-  }
+	clearCity() {
+		this.currentCity = null;
+	}
 
-  updateCityRating(rating) {
-    this.currentCity.rating += rating;
-  }
-
-  gotoAddCity() {
-    this.router.navigate(['Add']);
-  }
+	updateCityRating(rating) {
+		this.currentCity.rating += rating;
+	}
 }

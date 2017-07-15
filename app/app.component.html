@@ -6,11 +6,11 @@
 			<li class="list-group-item"
 				*ngFor="#city of cities"
 				(click)="showCity(city)">{{ city.name }}
-				<span class="badge">{{city.rating}}</span>
+				<a [routerLink]="['Detail', {name: city.name, id: city.id}]" class="btn btn-sm btn-default pull-right">Details</a>
+				<!--<span class="badge">{{city.rating}}</span>-->
 			</li>
 		</ul>
 		<button class="btn btn-primary" (click)="clearCity()">Leegmaken</button>
-		<button class="btn btn-primary" (click)="gotoAddCity()">Add city</button>
 		<hr>
 		<city-orders></city-orders>
 	</div>
