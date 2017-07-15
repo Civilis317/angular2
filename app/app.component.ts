@@ -13,13 +13,13 @@ import {FilterPipe} from './pipes/filter.pipe';
 @Component({
 	selector   : 'hello-world',
 	templateUrl: 'app/app.component.html',
-	providers  : [CityService, HTTP_PROVIDERS, OrderService],
+	providers  : [OrderService],
 	directives : [CityDetail, CityOrders, ROUTER_DIRECTIVES],
 	pipes      : [FilterPipe]// pipe gebruiken voor component
 })
 
 export class AppComponent {
-	title:string      = 'Filter steden met custom pipe';
+	title:string      = 'Stad toevoegen via formulier';
 	cities:City[]     = [];
 	currentCity:City;
 	filterCity:string = '';
@@ -28,12 +28,22 @@ export class AppComponent {
 	}
 
 	ngOnInit() {
-		this.cityService.getCities()
-			.subscribe(
-				cityData => this.cities = cityData,
-				err => console.log(err),
-				() => console.log('Steden ophalen compleet.')
-			)
+		// Uitgebreid voor werken met cache van cities in de service
+		if (this.cityService.getCityCache().length === 0) {
+			this.cityService.getCities()
+				.subscribe(
+					(cityData) => {
+						this.cities = cityData;
+						this.cityService.setCityCache(this.cities);
+					},
+					err => console.log(err),
+					() => console.log('Steden ophalen compleet.')
+				)
+		} else {
+			// Er zijn al steden in de cache. Haal deze op.
+			console.log('Steden opgehaald uit cache - geen HTTP-request');
+			this.cities = this.cityService.getCityCache();
+		}
 	}
 
 	showCity(city:City) {
